@@ -9,9 +9,9 @@
 import UIKit
 
 ///Two tag types, hashtag and mention friend
-enum TagType {
-    case hashTag
-    case mention
+enum TagType: Character {
+    case hashTag = "#"
+    case mention = "@"
 }
 
 ///For InputVC implementation
@@ -133,18 +133,15 @@ class HashTagView: UIView {
         switch Array(lastWord).first {
         case nil:
             tableView?.isHidden = true
-        case "#"?:
+        case (TagType.mention.rawValue)?, (TagType.hashTag.rawValue)?:
             tableView?.isHidden = false
-            inputDelegate?.passLastWord(of: lastWord, type: .hashTag)
-        case "@"?:
-            tableView?.isHidden = false
-            inputDelegate?.passLastWord(of: lastWord, type: .mention)
+            inputDelegate?.passLastWord(of: lastWord, type: TagType(rawValue: Array(lastWord).first!)!)
         default:
             break
         }
         
         words.forEach {
-            if $0.hasPrefix("#") || $0.hasPrefix("@") { setAttribute(of: $0) }
+            if $0.hasPrefix("\(TagType.hashTag.rawValue)") || $0.hasPrefix("\(TagType.mention.rawValue)") { setAttribute(of: $0) }
         }
     }
     
@@ -189,10 +186,8 @@ extension HashTagView: UITextViewDelegate {
         //點下即可秀出相對應的頁面
         guard let encodedInputString = URL.absoluteString.removingPercentEncoding else { return false }
         switch Array(encodedInputString)[0] {
-        case "#":
-            outputDelegate?.passSelectedtag(of: encodedInputString, type: .hashTag)
-        case "@":
-            outputDelegate?.passSelectedtag(of: encodedInputString, type: .mention)
+        case (TagType.mention.rawValue), (TagType.hashTag.rawValue):
+            outputDelegate?.passSelectedtag(of: encodedInputString, type: TagType(rawValue: Array(encodedInputString)[0])!)
         default:
             break
         }
