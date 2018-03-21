@@ -56,6 +56,7 @@ class HashTagView: UIView {
             //為了可在storyboard變更字體大小，故加入前2行
             let range = NSRange(location: 0, length: (_attrNSString?.length)!)
             _attrNSString?.addAttribute(NSAttributedStringKey.font, value: textViewFont, range: range)
+            //outputVC時，改變tag顏色
             hashTagTextView.attributedText = _attrNSString
         }
     }
@@ -169,6 +170,8 @@ class HashTagView: UIView {
                 guard let encodedInputString = result.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else { return }
                 
                 attrNSString.addAttribute(NSAttributedStringKey.link, value: "\(encodedInputString)", range: foundRange)
+                //在inputVC時就改變tag顏色
+//                hashTagTextView.attributedText = attrNSString
             }
         }
     }
@@ -221,9 +224,8 @@ extension HashTagView : UITableViewDelegate{
         //自動加一個空格，方便tag斷句
         //true部分，處理當textview一開始就輸入tag時
         let textString = (lastHashTagRange == NSMakeRange(0, 0)) ? (tags[indexPath.row] + " ") : (textNSString.replacingCharacters(in: lastHashTagRange, with: (tags[indexPath.row] + " ")))
-        
-        setText(of: textString)
         hashTagTextView.text = textString
+        setText(of: textString)
         inputDelegate?.setUpAttributeString(of: attrNSString)
     }
 }
