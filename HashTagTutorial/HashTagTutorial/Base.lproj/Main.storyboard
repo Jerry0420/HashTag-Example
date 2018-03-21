@@ -6,25 +6,95 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Input View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="HashTagTutorial" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="InputViewController" customModule="HashTagTutorial" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pJi-2e-bb4" customClass="HashTagView" customModule="HashTagTutorial" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="64" width="375" height="333.5"/>
+                                <color key="backgroundColor" red="0.92143100499999997" green="0.92145264149999995" blue="0.92144101860000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="editable" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="portion">
+                                        <real key="value" value="0.40000000000000002"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="textfontsize">
+                                        <real key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="pJi-2e-bb4" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="1/2" id="BPz-YQ-Jyh"/>
+                            <constraint firstItem="pJi-2e-bb4" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="T4o-qg-Sdq"/>
+                            <constraint firstItem="pJi-2e-bb4" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="gKs-rb-7hi"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="pJi-2e-bb4" secondAttribute="trailing" id="sd9-uJ-hEc"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" id="T3j-f9-06W"/>
+                    <navigationItem key="navigationItem" id="T3j-f9-06W">
+                        <barButtonItem key="rightBarButtonItem" title="POST" id="1OH-lZ-ae8">
+                            <connections>
+                                <segue destination="8pR-5M-Stv" kind="show" identifier="showHashTag" id="POW-MD-wsr"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="inputHashTagView" destination="pJi-2e-bb4" id="3p8-sU-lmi"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="364" y="30.134932533733135"/>
+        </scene>
+        <!--Output View Controller-->
+        <scene sceneID="gBg-dL-P5C">
+            <objects>
+                <viewController id="8pR-5M-Stv" customClass="OutputViewController" customModule="HashTagTutorial" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="J9q-8j-f4q">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CmK-3I-pNS" customClass="HashTagView" customModule="HashTagTutorial" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="64" width="375" height="333.5"/>
+                                <color key="backgroundColor" red="0.92143100499999997" green="0.92145264149999995" blue="0.92144101860000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="textfontsize">
+                                        <real key="value" value="25"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="portion">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="editable" value="NO"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="CmK-3I-pNS" firstAttribute="leading" secondItem="X7D-O2-lva" secondAttribute="leading" id="CJM-8E-EYp"/>
+                            <constraint firstItem="CmK-3I-pNS" firstAttribute="height" secondItem="J9q-8j-f4q" secondAttribute="height" multiplier="1/2" id="MiJ-Bm-FaX"/>
+                            <constraint firstItem="X7D-O2-lva" firstAttribute="trailing" secondItem="CmK-3I-pNS" secondAttribute="trailing" id="fh6-BO-DGW"/>
+                            <constraint firstItem="CmK-3I-pNS" firstAttribute="top" secondItem="X7D-O2-lva" secondAttribute="top" id="jh8-My-BkS"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="X7D-O2-lva"/>
+                    </view>
+                    <connections>
+                        <outlet property="outputHashTagView" destination="CmK-3I-pNS" id="eyM-Ro-nbE"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="807-rE-dlf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1125" y="38"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="pdt-71-tAu">
