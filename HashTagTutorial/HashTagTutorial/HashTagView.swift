@@ -53,8 +53,9 @@ class HashTagView: UIView {
     ///Pass in the attributeString to show on the outputVC
     var _attrNSString: NSMutableAttributedString? {
         didSet {
+            guard let length = _attrNSString?.length else { return }
             //為了可在storyboard變更字體大小，故加入前2行
-            let range = NSRange(location: 0, length: (_attrNSString?.length)!)
+            let range = NSRange(location: 0, length: length)
             _attrNSString?.addAttribute(NSAttributedStringKey.font, value: textViewFont, range: range)
             //outputVC時，改變tag顏色
             hashTagTextView.attributedText = _attrNSString
@@ -151,6 +152,7 @@ class HashTagView: UIView {
         //要取字串長度，使用NSString的length，不要使用String的count(因為在emoji時會有差別，長度不同)
         //將search range依照found range從全部慢慢限縮
         //found range 找出目前的word所在的位置
+        //未直接將word設定AttributedString的原因為，若同樣的tag輸入超過1次，除了第1個tag之外，其餘的會無法偵測到。
         //previousCharacterRange判斷found range的前一個字為何，避免#hihi#hihi or #hi@wang... 等#@混用的情況，第157行 range到的word為於單詞中間，造成attribute加錯位置。
         let fullStringLength = textNSString.length
         var searchRange = NSMakeRange(0, fullStringLength)
