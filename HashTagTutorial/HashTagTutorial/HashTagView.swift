@@ -143,7 +143,11 @@ class HashTagView: UIView {
         }
         
         words.forEach {
-            if $0.hasPrefix("\(TagType.hashTag.rawValue)") || $0.hasPrefix("\(TagType.mention.rawValue)") { setAttribute(of: $0) }
+            if $0.hasPrefix("\(TagType.hashTag.rawValue)") || $0.hasPrefix("\(TagType.mention.rawValue)") {
+                //避免只打# or @的情況
+                guard $0.count != 1 else { return }
+                setAttribute(of: $0)
+            }
         }
     }
     
